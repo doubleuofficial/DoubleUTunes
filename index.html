@@ -15,24 +15,26 @@
     <!-- Supabase JS Library CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth">
+<body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth min-h-screen flex flex-col">
 
     <!-- Broadcast Ribbon (Controlled via system_config table) -->
     <div id="broadcast-ribbon" class="hidden bg-amber-500 text-zinc-950 text-center py-2 px-4 text-sm font-bold tracking-wide uppercase transition-all">
         <span id="broadcast-text">Loading transmission...</span>
     </div>
 
-    <!-- Universal Nav Bar -->
-    <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800">
+    <!-- Universal Navigation Header -->
+    <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="#" class="text-xl font-black tracking-widest text-amber-500">DOUBLEU</a>
+            <a href="index.html" class="text-xl font-black tracking-widest text-amber-500 hover:text-amber-400 transition">DOUBLEU</a>
+            
             <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wider uppercase">
-                <a href="#" class="hover:text-amber-400 transition">Home</a>
-                <a href="#discography" class="hover:text-amber-400 transition">Discography</a>
-                <a href="#about" class="hover:text-amber-400 transition">About</a>
-                <a href="#contact" class="hover:text-amber-400 transition">Contact</a>
+                <a href="index.html" class="text-amber-500 transition duration-200">Home</a>
+                <a href="discography.html" class="hover:text-amber-400 transition duration-200">Discography</a>
+                <a href="#about" class="hover:text-amber-400 transition duration-200">About</a>
+                <a href="#contact" class="hover:text-amber-400 transition duration-200">Contact</a>
             </div>
-            <button class="md:hidden text-zinc-400 hover:text-white">
+            
+            <button class="md:hidden text-zinc-400 hover:text-white p-2">
                 <i class="fas fa-bars text-xl"></i>
             </button>
         </div>
@@ -43,7 +45,7 @@
         <div class="absolute inset-0 bg-radial from-amber-500/10 via-transparent to-transparent pointer-events-none"></div>
         <p class="text-amber-500 font-mono tracking-widest uppercase text-sm mb-3">Next Transmission Drop In</p>
         
-        <!-- Countdown Timer -->
+        <!-- Countdown Timer Matrix -->
         <div class="grid grid-cols-4 gap-4 max-w-xl mx-auto mb-8 font-mono">
             <div class="bg-zinc-950/80 border border-zinc-800 p-4 rounded min-w-[70px] sm:min-w-[90px]">
                 <span id="timer-days" class="block text-2xl sm:text-4xl font-bold text-white">00</span>
@@ -68,7 +70,7 @@
         <a id="hero-release-link" href="#discography" class="mt-6 inline-block bg-amber-500 text-zinc-950 px-6 py-3 font-bold tracking-wider text-sm uppercase hover:bg-amber-400 transition rounded shadow-lg shadow-amber-500/10">Listen Now</a>
     </header>
 
-    <!-- Featured Release Section (Dynamic Supabase Target) -->
+    <!-- Featured Release Section -->
     <section id="discography" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-xs font-mono tracking-widest text-amber-500 uppercase mb-2">// Featured Release</h2>
         <hr class="border-zinc-800 mb-12">
@@ -76,13 +78,11 @@
         <div id="featured-loading" class="text-zinc-500 font-mono text-center py-12">Awaiting satellite link...</div>
         
         <div id="featured-container" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-            <!-- Album Art Cover -->
             <div class="lg:col-span-5 flex justify-center">
                 <div class="relative group bg-zinc-900 border border-zinc-800 p-4 rounded-lg shadow-2xl max-w-sm w-full">
                     <img id="track-image" src="" alt="Album Artwork" class="w-full h-auto aspect-square object-cover rounded bg-zinc-800">
                 </div>
             </div>
-            <!-- Track Meta Data -->
             <div class="lg:col-span-7 space-y-6">
                 <div>
                     <span id="track-no-meta" class="text-amber-500 font-mono text-sm tracking-wider">Track 01</span>
@@ -95,11 +95,10 @@
                     <p id="track-date" class="font-mono text-zinc-300">YYYY-MM-DD</p>
                 </div>
 
-                <!-- Live Stream Node Paths -->
                 <div class="flex flex-wrap gap-4 pt-2">
-                    <a id="link-spotify" href="#" target="_blank" class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-spotify text-green-500"></i> Spotify</a>
-                    <a id="link-apple" href="#" target="_blank" class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-apple text-white"></i> Apple Music</a>
-                    <a id="link-youtube" href="#" target="_blank" class="flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-youtube text-red-500"></i> YouTube</a>
+                    <a id="link-spotify" href="#" target="_blank" class="hidden flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-spotify text-green-500"></i> Spotify</a>
+                    <a id="link-apple" href="#" target="_blank" class="hidden flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-apple text-white"></i> Apple Music</a>
+                    <a id="link-youtube" href="#" target="_blank" class="hidden flex items-center gap-2 bg-zinc-900 border border-zinc-800 px-4 py-2.5 rounded text-sm font-medium hover:bg-zinc-800 transition"><i class="fab fa-youtube text-red-500"></i> YouTube</a>
                 </div>
             </div>
         </div>
@@ -115,9 +114,7 @@
                 <p id="about-text-preview" class="text-zinc-400 leading-relaxed text-lg line-clamp-3">
                     Loading artist background telemetry...
                 </p>
-                <div id="about-text-full" class="hidden text-zinc-400 leading-relaxed text-lg space-y-4">
-                    <!-- Full text gets injected here -->
-                </div>
+                <div id="about-text-full" class="hidden text-zinc-400 leading-relaxed text-lg space-y-4"></div>
             </div>
 
             <button id="read-more-btn" class="mt-4 inline-flex items-center gap-2 text-sm font-mono text-amber-500 hover:text-amber-400 transition uppercase tracking-wider">
@@ -130,7 +127,6 @@
     <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-xs font-mono tracking-widest text-amber-500 uppercase mb-2">// Featured Merch</h2>
         <hr class="border-zinc-800 mb-12">
-        
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             <div class="bg-zinc-900 border border-zinc-800 rounded p-4 flex flex-col justify-between group">
                 <div class="aspect-square w-full bg-zinc-950 rounded mb-4 flex items-center justify-center border border-zinc-800/50 overflow-hidden relative">
@@ -162,7 +158,6 @@
                 <h2 class="text-3xl font-black uppercase tracking-tight">Secure Studio Gateway</h2>
                 <p class="text-zinc-500 text-sm font-mono mt-1">Send a direct transmission to the studio hub.</p>
             </div>
-            
             <form id="contact-form" class="space-y-4">
                 <div>
                     <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Identification / Name</label>
@@ -181,187 +176,109 @@
         </div>
     </section>
 
-    <!-- Universal Footer -->
-    <footer class="bg-zinc-950 py-12 border-t border-zinc-900 text-zinc-500 text-xs font-mono">
+    <!-- Universal System Footer -->
+    <footer class="bg-zinc-950 py-12 border-t border-zinc-900 text-zinc-500 text-xs font-mono mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
+            <div class="text-center sm:text-left">
                 <p>&copy; 2026 DOUBLEU. All rights reserved.</p>
                 <p class="text-zinc-700 mt-1">System State: <span id="system-state-node" class="text-zinc-500">Standard Mode</span></p>
             </div>
-            <div id="footer-socials" class="flex space-x-6 text-sm">
-                <!-- Populated dynamically via script same_as_nodes -->
-            </div>
+            <div id="footer-socials" class="flex items-center space-x-6 text-sm"></div>
         </div>
     </footer>
 
     <!-- Core App Engine Logic -->
     <script>
-        // 1. DATABASE CONFIGURATION (Replace with your actual live project values)
         const SUPABASE_URL = "https://your-project-id.supabase.co"; 
         const SUPABASE_KEY = "your-anon-public-key";
-
-        // Fixed variable identifier collision here
         const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // 2. COUNTDOWN TIMER ENGINE (Calculates time until the next Friday midnight)
         function updateCountdown() {
             const now = new Date();
             let nextFriday = new Date();
-            
-            // Calculate numeric day target offset
             nextFriday.setDate(now.getDate() + (5 - now.getDay() + 7) % 7);
             nextFriday.setHours(0, 0, 0, 0);
-            
-            // Increment forward an extra week if already Friday past midnight
-            if (nextFriday <= now) {
-                nextFriday.setDate(nextFriday.getDate() + 7);
-            }
-            
+            if (nextFriday <= now) { nextFriday.setDate(nextFriday.getDate() + 7); }
             const diff = nextFriday - now;
             
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const secs = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            document.getElementById('timer-days').innerText = String(days).padStart(2, '0');
-            document.getElementById('timer-hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('timer-mins').innerText = String(mins).padStart(2, '0');
-            document.getElementById('timer-secs').innerText = String(secs).padStart(2, '0');
+            document.getElementById('timer-days').innerText = String(Math.floor(diff / (1000*60*60*24))).padStart(2, '0');
+            document.getElementById('timer-hours').innerText = String(Math.floor((diff % (1000*60*60*24)) / (1000*60*60))).padStart(2, '0');
+            document.getElementById('timer-mins').innerText = String(Math.floor((diff % (1000*60*60)) / (1000*60))).padStart(2, '0');
+            document.getElementById('timer-secs').innerText = String(Math.floor((diff % (1000*60)) / 1000)).padStart(2, '0');
         }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
+        setInterval(updateCountdown, 1000); updateCountdown();
 
-        // 3. READ MORE INTERFACE CONTROLLER
         const readMoreBtn = document.getElementById('read-more-btn');
         const previewText = document.getElementById('about-text-preview');
         const fullText = document.getElementById('about-text-full');
-        
         readMoreBtn.addEventListener('click', () => {
             if (fullText.classList.contains('hidden')) {
-                fullText.classList.remove('hidden');
-                previewText.classList.add('hidden');
+                fullText.classList.remove('hidden'); previewText.classList.add('hidden');
                 readMoreBtn.innerHTML = `<span>Read Less</span> <i class="fas fa-chevron-up text-xs"></i>`;
             } else {
-                fullText.classList.add('hidden');
-                previewText.classList.remove('hidden');
+                fullText.classList.add('hidden'); previewText.classList.remove('hidden');
                 readMoreBtn.innerHTML = `<span>Read More</span> <i class="fas fa-chevron-down text-xs"></i>`;
             }
         });
 
-        // 4. SUPABASE LIVE TELEMETRY INJECTION
         async function fetchSystemMetadata() {
             try {
-                // Fetch layout system settings row (id = 1)
-                const { data: config, error: configErr } = await supabaseClient
-                    .from('system_config') // Replace with your configuration table name if different
-                    .select('*')
-                    .eq('id', 1)
-                    .single();
-
+                const { data: config, error: configErr } = await supabaseClient.from('system_config').select('*').eq('id', 1).single();
                 if (configErr) throw configErr;
 
-                // Safely handle stringified objects if parsed directly from plain text columns
                 const seo = typeof config.seo_data === 'string' ? JSON.parse(config.seo_data) : config.seo_data;
                 const socials = typeof config.same_as_nodes === 'string' ? JSON.parse(config.same_as_nodes) : config.same_as_nodes;
 
-                // Update runtime SEO attributes
                 if(seo) {
                     document.title = seo.page_title || document.title;
                     document.getElementById('meta-desc').setAttribute('content', seo.meta_description || '');
                     document.getElementById('meta-keywords').setAttribute('content', seo.keywords || '');
                 }
-
-                // Render ribbon interface elements if flag is true
                 if(config.broadcast_ribbon_active === true || config.broadcast_ribbon_active === "true") {
-                    const ribbon = document.getElementById('broadcast-ribbon');
                     document.getElementById('broadcast-text').innerText = config.broadcast_ribbon_text;
-                    ribbon.classList.remove('hidden');
+                    document.getElementById('broadcast-ribbon').classList.remove('hidden');
                 }
-
                 document.getElementById('system-state-node').innerText = config.system_state || "Standard Mode";
 
-                // Generate Social Node Elements from JSON row data
                 if(socials) {
-                    const container = document.getElementById('footer-socials');
-                    container.innerHTML = ''; 
-                    
-                    const structuralMap = [
-                        { key: 'instagram_url', icon: 'fa-instagram' },
-                        { key: 'twitter_url', icon: 'fa-x-twitter' },
-                        { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }
-                    ];
-
+                    const container = document.getElementById('footer-socials'); container.innerHTML = '';
+                    const structuralMap = [{ key: 'instagram_url', icon: 'fa-instagram' }, { key: 'twitter_url', icon: 'fa-x-twitter' }, { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }];
                     structuralMap.forEach(item => {
-                        if(socials[item.key]) {
-                            container.innerHTML += `<a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 transition"><i class="fab ${item.icon}"></i></a>`;
+                        if (socials[item.key]) {
+                            container.innerHTML += `<a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 text-zinc-400 transition-colors"><i class="fab ${item.icon}"></i></a>`;
                         }
                     });
                 }
-
-                // Chain to execution of track data query via tracking slug relation
-                if (config.featured_track_slug) {
-                    fetchFeaturedTrack(config.featured_track_slug);
-                }
-
-            } catch (err) {
-                console.error("System configuration injection error: ", err.message);
-            }
+                if (config.featured_track_slug) { fetchFeaturedTrack(config.featured_track_slug); }
+            } catch (err) { console.error("System config error: ", err.message); }
         }
 
         async function fetchFeaturedTrack(trackSlug) {
             try {
-                const { data: track, error: trackErr } = await supabaseClient
-                    .from('tracks') // Replace with your track data table name if different
-                    .select('*')
-                    .eq('slug', trackSlug)
-                    .single();
-
+                const { data: track, error: trackErr } = await supabaseClient.from('tracks').select('*').eq('slug', trackSlug).single();
                 if (trackErr) throw trackErr;
-
                 if (track) {
-                    // Inject layout visual parameters
                     document.getElementById('hero-release-title').innerText = `${track.album_name || 'Single'} — "${trackSlug.replace(/-/g, ' ')}"`;
                     document.getElementById('track-name').innerText = track.album_name || "Untitled Track";
                     document.getElementById('track-no-meta').innerText = `Track ${String(track.track_no || 1).padStart(2, '0')}`;
                     document.getElementById('track-artist').innerText = track.featured_artist ? `ft. ${track.featured_artist}` : "DoubleU";
                     document.getElementById('track-date').innerText = track.release_date || "TBD";
-                    
-                    // About section data assignment
-                    document.getElementById('about-text-preview').innerText = track.about_song ? track.about_song.substring(0, 180) + '...' : "No background transmission data specified.";
+                    document.getElementById('about-text-preview').innerText = track.about_song ? track.about_song.substring(0, 180) + '...' : "No background details.";
                     document.getElementById('about-text-full').innerText = track.about_song || "";
+                    if (track.image_path) document.getElementById('track-image').src = track.image_path;
 
-                    // Assign Image Asset
-                    if (track.image_path) {
-                        document.getElementById('track-image').src = track.image_path;
-                    }
-
-                    // Assign Streaming Link Elements
-                    document.getElementById('link-spotify').href = track.spotify_link || "#";
-                    document.getElementById('link-apple').href = track.apple_link || "#";
-                    document.getElementById('link-youtube').href = track.youtube_link || "#";
-
-                    // Reveal components gracefully
+                    if(track.spotify_link) { document.getElementById('link-spotify').href = track.spotify_link; document.getElementById('link-spotify').classList.remove('hidden'); }
+                    if(track.apple_link) { document.getElementById('link-apple').href = track.apple_link; document.getElementById('link-apple').classList.remove('hidden'); }
+                    if(track.youtube_link) { document.getElementById('link-youtube').href = track.youtube_link; document.getElementById('link-youtube').classList.remove('hidden'); }
+                    
                     document.getElementById('featured-loading').classList.add('hidden');
                     document.getElementById('featured-container').classList.remove('hidden');
                 }
-            } catch (err) {
-                console.error("Error connecting track matrix elements: ", err.message);
-                document.getElementById('featured-loading').innerText = "Telemetry synchronization failure.";
-            }
+            } catch (err) { console.error("Error connecting track matrix elements: ", err.message); }
         }
 
-        // Initialize execution stack
-        window.addEventListener('DOMContentLoaded', () => {
-            fetchSystemMetadata();
-        });
-
-        // Contact submission handler
-        document.getElementById('contact-form').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Transmission logged to interface grid successfully.');
-            e.target.reset();
-        });
+        window.addEventListener('DOMContentLoaded', fetchSystemMetadata);
+        document.getElementById('contact-form').addEventListener('submit', (e) => { e.preventDefault(); alert('Transmission logged.'); e.target.reset(); });
     </script>
 </body>
 </html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | DoubleU Official Portal</title>
+    
+    <!-- Tailwind CSS & FontAwesome Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase JS Library CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth min-h-screen flex flex-col">
+
+    <!-- Universal Navigation Header -->
+    <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-black tracking-widest text-amber-500 hover:text-amber-400 transition">DOUBLEU</a>
+            
+            <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wider uppercase">
+                <a href="index.html" class="hover:text-amber-400 transition duration-200">Home</a>
+                <a href="discography.html" class="hover:text-amber-400 transition duration-200">Discography</a>
+                <a href="about.html" class="text-amber-500 transition duration-200">About</a>
+                <a href="index.html#contact" class="hover:text-amber-400 transition duration-200">Contact</a>
+            </div>
+            
+            <button class="md:hidden text-zinc-400 hover:text-white p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- About Content Grid -->
+    <main class="py-16 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+        <header class="mb-12 border-b border-zinc-900 pb-6">
+            <h1 class="text-4xl font-black uppercase tracking-tight">Artist Profile</h1>
+            <p class="text-zinc-500 font-mono text-sm mt-2">// System blueprint: Analog architecture & electronic transmission design</p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-12 items-start">
+            
+            <!-- Left Side: Conceptual Specs / Meta -->
+            <div class="md:col-span-4 space-y-6">
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded font-mono text-xs space-y-4">
+                    <h3 class="text-amber-500 uppercase tracking-widest font-bold border-b border-zinc-800 pb-2">// Core Specs</h3>
+                    <div>
+                        <span class="text-zinc-500 block">Origin Location:</span>
+                        <span class="text-zinc-300">Earth / Studio Link</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block">Primary Medium:</span>
+                        <span class="text-zinc-300">Modular Synthesis / Analog Tape</span>
+                    </div>
+                    <div>
+                        <span class="text-zinc-500 block">Output Signal:</span>
+                        <span class="text-zinc-300">Underground Techno / Ambient Electronic</span>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-900/40 border border-zinc-900 p-6 rounded text-sm text-zinc-400 leading-relaxed">
+                    <i class="fas fa-quote-left text-amber-500/30 mb-2 block text-xl"></i>
+                    "The beauty of hardware lies inside its instability. The voltage drift on analog tape creates microtonal fluctuations that digital algorithms spend infinite processing cycles trying to mimic."
+                </div>
+            </div>
+
+            <!-- Right Side: Narrative Bio -->
+            <div class="md:col-span-8 space-y-6 text-zinc-300 leading-relaxed">
+                <h2 class="text-2xl font-bold text-white uppercase tracking-tight">The DoubleU Signal Path</h2>
+                
+                <p>
+                    Operating at the exact intersection of kinetic hardware synthesis and pure signal manipulation, **DoubleU** design electronic soundscapes that are raw, driving, and entirely improvisational. By discarding preset frameworks, every release and live set is built as an ephemeral system—sculpted out of voltage control networks and unpredictable modular matrices.
+                </p>
+
+                <p>
+                    The sonic identity of DoubleU relies on real physical friction: the saturate crunch of driving raw pre-amps, the rich decay of bucket-brigade delays, and structural loops recorded directly onto analog open-reel decks. This adherence to analog workflows doesn't stem from pure nostalgia, but rather from a preference for tactile engineering limitations over infinite screen options.
+                </p>
+
+                <h3 class="text-lg font-bold text-white uppercase tracking-wider pt-4 text-amber-500 font-mono">// Studio Architecture & Telemetry</h3>
+                <p>
+                    From specialized custom underground techno tracks to sprawling, slow-evolving ambient modular drifts, the objective remains static: capturing live hardware electronic music exactly as it happens inside the room. No step sequencing shortcuts, no sterile precision—just continuous voltage tracking across real copper paths.
+                </p>
+
+                <div class="pt-6">
+                    <a href="discography.html" class="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-800 text-amber-500 font-mono text-xs tracking-wider uppercase px-5 py-3 rounded hover:bg-amber-500 hover:text-zinc-950 transition duration-200">
+                        <i class="fas fa-satellite-dish"></i> Access Complete Discography Archive
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+    </main>
+
+    <!-- Universal System Footer -->
+    <footer class="bg-zinc-950 py-12 border-t border-zinc-900 text-zinc-500 text-xs font-mono mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-center sm:text-left">
+                <p>&copy; 2026 DOUBLEU. All rights reserved.</p>
+                <p class="text-zinc-700 mt-1">System State: <span id="system-state-node" class="text-zinc-500">Standard Mode</span></p>
+            </div>
+            <div id="footer-socials" class="flex items-center space-x-6 text-sm"></div>
+        </div>
+    </footer>
+
+    <!-- Universal Metadata Injection Core Script -->
+    <script>
+        const SUPABASE_URL = "https://your-project-id.supabase.co"; 
+        const SUPABASE_KEY = "your-anon-public-key";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        async function initializeAboutPage() {
+            try {
+                // Fetch dynamic layout telemetry config from DB row id = 1
+                const { data: config, error } = await supabaseClient
+                    .from('system_config')
+                    .select('system_state, same_as_nodes')
+                    .eq('id', 1)
+                    .single();
+
+                if (error) throw error;
+
+                if (config) {
+                    // Hydrate system mode text element
+                    document.getElementById('system-state-node').innerText = config.system_state || "Standard Mode";
+                    
+                    // Parse network links out of object data block
+                    const socials = typeof config.same_as_nodes === 'string' ? JSON.parse(config.same_as_nodes) : config.same_as_nodes;
+                    
+                    if (socials) {
+                        const container = document.getElementById('footer-socials');
+                        container.innerHTML = ''; // Clear fallback states
+                        
+                        const structuralMap = [
+                            { key: 'instagram_url', icon: 'fa-instagram' },
+                            { key: 'twitter_url', icon: 'fa-x-twitter' },
+                            { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }
+                        ];
+
+                        structuralMap.forEach(item => {
+                            if (socials[item.key]) {
+                                container.innerHTML += `
+                                    <a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 text-zinc-400 transition-colors duration-200">
+                                        <i class="fab ${item.icon}"></i>
+                                    </a>`;
+                            }
+                        });
+                    }
+                }
+            } catch (err) {
+                console.error("Failure updating universal infrastructure elements on About page:", err.message);
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', initializeAboutPage);
+    </script>
+</body>
+</html>
+

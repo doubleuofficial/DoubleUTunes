@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Core Panel | DoubleU Command</title>
+    
+    <!-- Tailwind CSS & FontAwesome Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Supabase JS Library CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth min-h-screen flex flex-col">
+
+    <!-- GATEKEEPER VIEW: AUTH PANEL GATE -->
+    <div id="auth-gate-screen" class="fixed inset-0 z-50 bg-zinc-950 flex flex-col items-center justify-center p-4">
+        <div class="max-w-md w-full bg-zinc-900 border border-zinc-800 rounded-xl p-8 shadow-2xl space-y-6">
+            <div class="text-center space-y-2">
+                <h1 class="text-2xl font-black tracking-widest text-amber-500 uppercase">DOUBLEU OS</h1>
+                <p class="text-xs font-mono text-zinc-500">// Authenticate secure studio grid token access</p>
+            </div>
+
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Identity / Email</label>
+                    <input type="email" id="auth-email" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 text-white font-mono">
+                </div>
+                <div>
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Passphrase / Password</label>
+                    <input type="password" id="auth-password" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 text-white font-mono">
+                </div>
+                <button type="submit" class="w-full bg-amber-500 text-zinc-950 py-3 font-bold tracking-widest text-xs uppercase hover:bg-amber-400 transition rounded cursor-pointer">
+                    Establish Link
+                </button>
+            </form>
+            <div id="auth-error-log" class="hidden text-center text-xs font-mono text-red-500 border border-red-950 bg-red-950/20 py-2 rounded"></div>
+        </div>
+    </div>
+
+    <!-- MAIN TERMINAL SYSTEM DASHBOARD (Hidden behind auth block by default) -->
+    <div id="admin-dashboard-layout" class="hidden flex-col min-h-screen">
+        
+        <!-- Live Production Management Banner Bar -->
+        <div class="bg-amber-500 text-zinc-950 text-center py-1 px-4 text-xs font-mono tracking-widest uppercase font-bold flex items-center justify-center gap-4">
+            <span><i class="fas fa-shield-alt mr-2"></i> Encrypted Session Routing Established</span>
+            <button onclick="executeTerminalSignOut()" class="bg-zinc-950 text-white font-sans font-normal text-[10px] px-2 py-0.5 rounded uppercase tracking-wider hover:bg-zinc-900 transition cursor-pointer">Terminate Connection</button>
+        </div>
+
+        <!-- Universal Header Navigation -->
+        <nav class="bg-zinc-900 border-b border-zinc-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <span class="text-xl font-black tracking-widest text-amber-500">DOUBLEU</span>
+                    <span class="text-xs font-mono text-zinc-500 bg-zinc-950 px-2.5 py-1 border border-zinc-800 rounded">CORE_OS</span>
+                </div>
+                <div class="flex space-x-6 text-sm tracking-wider uppercase font-medium">
+                    <a href="index.html" target="_blank" class="text-zinc-400 hover:text-white transition">View Site <i class="fas fa-external-link-alt text-[10px] ml-1"></i></a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Workspace Container -->
+        <main class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow w-full space-y-12">
+            
+            <!-- SECTION 1: SYSTEM GLOBAL CONFIGURATION MANIFEST -->
+            <section class="bg-zinc-900 border border-zinc-800 rounded-lg p-6 shadow-xl">
+                <div class="border-b border-zinc-800 pb-4 mb-6 flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-black uppercase tracking-tight text-white">1. System Config Node</h2>
+                        <p class="text-zinc-500 font-mono text-xs mt-0.5">Controls layout visibility status arrays and meta variables globally (ID: 1)</p>
+                    </div>
+                    <button type="button" onclick="saveSystemConfig()" class="bg-amber-500 text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider px-4 py-2 rounded hover:bg-amber-400 transition shadow cursor-pointer">
+                        <i class="fas fa-save mr-1.5"></i> Push Global Config Update
+                    </button>
+                </div>
+
+                <form id="system-config-form" class="grid grid-cols-1 md:grid-cols-12 gap-6">
+                    <div class="md:col-span-4">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">System Status Text</label>
+                        <input type="text" id="cfg-system-state" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 text-sm font-mono text-zinc-200 focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="md:col-span-4">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Featured Track Target Slug</label>
+                        <input type="text" id="cfg-featured-slug" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 text-sm font-mono text-zinc-200 focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="md:col-span-4">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Broadcast Ribbon Banner State</label>
+                        <select id="cfg-ribbon-active" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 text-sm font-mono text-zinc-200 focus:outline-none focus:border-amber-500">
+                            <option value="true">ACTIVE (Visible)</option>
+                            <option value="false">DEACTIVATED (Hidden)</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-12">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Broadcast Ribbon Text String</label>
+                        <input type="text" id="cfg-ribbon-text" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 text-sm text-zinc-200 focus:outline-none focus:border-amber-500">
+                    </div>
+                    <div class="md:col-span-6">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">SEO JSON String Data Object</label>
+                        <textarea id="cfg-seo-data" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 font-mono text-xs text-amber-400/90 focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                    <div class="md:col-span-6">
+                        <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 font-bold">Social Network Identity Matrix Nodes (same_as_nodes JSON)</label>
+                        <textarea id="cfg-socials-data" rows="4" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2.5 font-mono text-xs text-amber-400/90 focus:outline-none focus:border-amber-500"></textarea>
+                    </div>
+                </form>
+            </section>
+
+            <!-- SECTION 2: AUDIO METADATA CATALOG ARCHIVE (CRUD) -->
+            <section class="bg-zinc-900 border border-zinc-800 rounded-lg p-6 shadow-xl">
+                <div class="border-b border-zinc-800 pb-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h2 class="text-xl font-black uppercase tracking-tight text-white">2. Audio Catalogue Records Master</h2>
+                        <p class="text-zinc-500 font-mono text-xs mt-0.5">// Add, mutate, or purge structural rows from tracks register database</p>
+                    </div>
+                    <button type="button" onclick="openTrackModal()" class="bg-emerald-600 text-white font-mono text-xs font-bold uppercase tracking-wider px-4 py-2.5 rounded hover:bg-emerald-500 transition cursor-pointer self-start sm:self-center">
+                        <i class="fas fa-plus mr-1.5"></i> Insert New Catalogue Row
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse text-sm">
+                        <thead>
+                            <tr class="border-b border-zinc-800 text-zinc-500 font-mono text-xs uppercase bg-zinc-950/40">
+                                <th class="py-3 px-4">Art/Details</th>
+                                <th class="py-3 px-4">Slug Index Identifier</th>
+                                <th class="py-3 px-4">Release Chronology</th>
+                                <th class="py-3 px-4 text-center">Active Paths</th>
+                                <th class="py-3 px-4 text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tracks-table-body" class="divide-y divide-zinc-850">
+                            <tr><td colspan="5" class="text-center py-8 font-mono text-zinc-600">Awaiting secure session authorization confirmation...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- MODAL WINDOW FOR CONTENT PACKETS CREATION/MUTATION -->
+    <div id="track-modal" class="hidden fixed inset-0 z-50 bg-zinc-950/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-zinc-900 border border-zinc-800 rounded-xl max-w-3xl w-full p-6 shadow-2xl space-y-6 max-h-[90vh] overflow-y-auto">
+            <div class="border-b border-zinc-800 pb-3 flex items-center justify-between">
+                <h3 id="modal-title-text" class="text-lg font-black uppercase tracking-tight text-white">Catalogue Node Form</h3>
+                <button onclick="closeTrackModal()" class="text-zinc-500 hover:text-white transition text-lg p-1"><i class="fas fa-times"></i></button>
+            </div>
+            <form id="track-crud-form" class="grid grid-cols-1 sm:grid-cols-12 gap-4 text-sm">
+                <input type="hidden" id="track-id-field">
+                <div class="sm:col-span-8">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Album / Track Title</label>
+                    <input type="text" id="trk-name" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Slug Identifier</label>
+                    <input type="text" id="trk-slug" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-sm font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Track Total/Number</label>
+                    <input type="number" id="trk-no" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-sm font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Featured Artist</label>
+                    <input type="text" id="trk-feat" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Release Date</label>
+                    <input type="date" id="trk-date" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-zinc-300 text-sm font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-6">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Album Artwork Cover Image URL Path</label>
+                    <input type="text" id="trk-img" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-6">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">Streaming Audio Preview Path URL (audio_path)</label>
+                    <input type="text" id="trk-audio" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-xs font-mono focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1"><i class="fab fa-spotify text-green-500 mr-1"></i> Spotify Target URL</label>
+                    <input type="text" id="trk-spot" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-xs focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1"><i class="fab fa-apple text-white mr-1"></i> Apple Music Link</label>
+                    <input type="text" id="trk-apple" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-xs focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-4">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1"><i class="fab fa-youtube text-red-500 mr-1"></i> YouTube Network Path</label>
+                    <input type="text" id="trk-yt" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-xs focus:outline-none focus:border-amber-500">
+                </div>
+                <div class="sm:col-span-12">
+                    <label class="block text-xs font-mono uppercase text-zinc-400 mb-1">About Content Context description (about_song)</label>
+                    <textarea id="trk-about" rows="3" class="w-full bg-zinc-950 border border-zinc-800 rounded p-2 text-white text-sm focus:outline-none focus:border-amber-500"></textarea>
+                </div>
+                <div class="sm:col-span-12 flex justify-end gap-3 pt-4 border-t border-zinc-800">
+                    <button type="button" onclick="closeTrackModal()" class="bg-zinc-800 text-zinc-300 font-mono text-xs uppercase tracking-wider px-4 py-2.5 rounded hover:bg-zinc-700 transition">Abort Changes</button>
+                    <button type="submit" class="bg-amber-500 text-zinc-950 font-mono text-xs font-bold uppercase tracking-wider px-5 py-2.5 rounded hover:bg-amber-400 transition">Execute Database Command</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ENGINE CORE LOGIC INJECTION -->
+    <script>
+        const SUPABASE_URL = "https://your-project-id.supabase.co"; 
+        const SUPABASE_KEY = "your-anon-public-key";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // 1. SESSION ACCESS GATEKEEPER MONITOR LOOPS
+        supabaseClient.auth.onAuthStateChange((event, session) => {
+            const authScreen = document.getElementById('auth-gate-screen');
+            const dashboard = document.getElementById('admin-dashboard-layout');
+            
+            if (session) {
+                authScreen.classList.add('hidden');
+                dashboard.classList.remove('flex');
+                dashboard.classList.remove('hidden'); // Reset layouts visibility
+                
+                // Hydrate core functional frameworks upon valid token verification
+                fetchAdminMetadata();
+                fetchTracksCatalog();
+            } else {
+                authScreen.classList.remove('hidden');
+                dashboard.classList.add('hidden');
+            }
+        });
+
+        // 2. SIGN IN / INTERFACE DISCONNECT HANDLERS
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value;
+            const password = document.getElementById('auth-password').value;
+            const errorLog = document.getElementById('auth-error-log');
+
+            errorLog.classList.add('hidden');
+            const { error } = await supabaseClient.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                errorLog.innerText = `Access Denied: ${error.message}`;
+                errorLog.classList.remove('hidden');
+            }
+        });
+
+        async function executeTerminalSignOut() {
+            await supabaseClient.auth.signOut();
+        }
+
+        // 3. SECURED SYSTEM CRUD ENGINE LOOPS
+        async function fetchAdminMetadata() {
+            try {
+                const { data: config, error } = await supabaseClient.from('system_config').select('*').eq('id', 1).single();
+                if (error) throw error;
+                if (config) {
+                    document.getElementById('cfg-system-state').value = config.system_state || '';
+                    document.getElementById('cfg-featured-slug').value = config.featured_track_slug || '';
+                    document.getElementById('cfg-ribbon-active').value = String(config.broadcast_ribbon_active);
+                    document.getElementById('cfg-ribbon-text').value = config.broadcast_ribbon_text || '';
+                    document.getElementById('cfg-seo-data').value = typeof config.seo_data === 'object' ? JSON.stringify(config.seo_data, null, 2) : config.seo_data;
+                    document.getElementById('cfg-socials-data').value = typeof config.same_as_nodes === 'object' ? JSON.stringify(config.same_as_nodes, null, 2) : config.same_as_nodes;
+                }
+            } catch (err) { console.error('Configuration trace array failure: ' + err.message); }
+        }
+
+        async function saveSystemConfig() {
+            try {
+                const updates = {
+                    system_state: document.getElementById('cfg-system-state').value,
+                    featured_track_slug: document.getElementById('cfg-featured-slug').value,
+                    broadcast_ribbon_active: document.getElementById('cfg-ribbon-active').value === 'true',
+                    broadcast_ribbon_text: document.getElementById('cfg-ribbon-text').value,
+                    seo_data: JSON.parse(document.getElementById('cfg-seo-data').value),
+                    same_as_nodes: JSON.parse(document.getElementById('cfg-socials-data').value),
+                    updated_at: new Date().toISOString()
+                };
+                const { error } = await supabaseClient.from('system_config').update(updates).eq('id', 1);
+                if (error) throw error;
+                alert('Global Config Matrix Successfully Updated.');
+            } catch (err) { alert('Transaction Rejected: ' + err.message); }
+        }
+
+        async function fetchTracksCatalog() {
+            try {
+                const { data: tracks, error } = await supabaseClient.from('tracks').select('*').order('release_date', { ascending: false });
+                if (error) throw error;
+
+                const tbody = document.getElementById('tracks-table-body');
+                tbody.innerHTML = '';
+                if (!tracks || tracks.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="5" class="text-center py-6 font-mono text-zinc-600">No database files located.</td></tr>';
+                    return;
+                }
+                tracks.forEach(track => {
+                    tbody.innerHTML += `
+                        <tr class="hover:bg-zinc-900/50 transition">
+                            <td class="py-3 px-4 flex items-center gap-3">
+                                <img src="${track.image_path || ''}" class="w-10 h-10 object-cover bg-zinc-950 rounded border border-zinc-800" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'40\' height=\'40\'><rect width=\'100%\' height=\'100%\' fill=\'%23111827\'/></svg>'">
+                                <div>
+                                    <span class="font-bold block text-white">${track.album_name || 'Untitled'}</span>
+                                    <span class="text-zinc-500 text-xs font-mono">No. ${track.track_no || 1} ${track.featured_artist ? `ft. ${track.featured_artist}` : ''}</span>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 font-mono text-xs text-amber-500">${track.slug}</td>
+                            <td class="py-3 px-4 font-mono text-xs">${track.release_date || 'None'}</td>
+                            <td class="py-3 px-4 text-center">
+                                <div class="flex items-center justify-center gap-2 text-xs text-zinc-500">
+                                    <i class="fab fa-spotify ${track.spotify_link ? 'text-green-500' : ''}"></i>
+                                    <i class="fab fa-apple ${track.apple_link ? 'text-white' : ''}"></i>
+                                    <i class="fab fa-youtube ${track.youtube_link ? 'text-red-500' : ''}"></i>
+                                </div>
+                            </td>
+                            <td class="py-3 px-4 text-right space-x-1">
+                                <button onclick='editTrackRow(${JSON.stringify(track).replace(/'/g, "&apos;")})' class="bg-zinc-800 text-zinc-300 px-2.5 py-1 text-xs font-mono rounded hover:bg-zinc-700 transition"><i class="fas fa-edit"></i></button>
+                                <button onclick="deleteTrackRow(${track.id})" class="bg-red-950 text-red-400 px-2.5 py-1 text-xs font-mono rounded hover:bg-red-800 hover:text-white transition"><i class="fas fa-trash-alt"></i></button>
+                            </td>
+                        </tr>`;
+                });
+            } catch (err) { console.error('Tracing array fault: ', err.message); }
+        }
+
+        // 4. WINDOW PANELS INTERACTIVE ACTION HOOKS
+        function openTrackModal(track = null) {
+            const modal = document.getElementById('track-modal');
+            document.getElementById('track-crud-form').reset();
+            if (track) {
+                document.getElementById('modal-title-text').innerText = "Modify Audio Node Registry Entry";
+                document.getElementById('track-id-field').value = track.id || '';
+                document.getElementById('trk-name').value = track.album_name || '';
+                document.getElementById('trk-slug').value = track.slug || '';
+                document.getElementById('trk-no').value = track.track_no ?? 1;
+                document.getElementById('trk-feat').value = track.featured_artist || '';
+                document.getElementById('trk-date').value = track.release_date || '';
+                document.getElementById('trk-img').value = track.image_path || '';
+                document.getElementById('trk-audio').value = track.audio_path || '';
+                document.getElementById('trk-spot').value = track.spotify_link || '';
+                document.getElementById('trk-apple').value = track.apple_link || '';
+                document.getElementById('trk-yt').value = track.youtube_link || '';
+                document.getElementById('trk-about').value = track.about_song || '';
+            } else {
+                document.getElementById('modal-title-text').innerText = "Create New Audio Catalog Node Entry";
+                document.getElementById('track-id-field').value = '';
+            }
+            modal.classList.remove('hidden');
+        }
+
+        function closeTrackModal() { document.getElementById('track-modal').classList.add('hidden'); }
+        function editTrackRow(trackObj) { openTrackModal(trackObj); }
+
+        document.getElementById('track-crud-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const id = document.getElementById('track-id-field').value;
+            const payload = {
+                album_name: document.getElementById('trk-name').value,
+                slug: document.getElementById('trk-slug').value,
+                track_no: parseInt(document.getElementById('trk-no').value) || 1,
+                featured_artist: document.getElementById('trk-feat').value || null,
+                release_date: document.getElementById('trk-date').value || null,
+                image_path: document.getElementById('trk-img').value || null,
+                audio_path: document.getElementById('trk-audio').value || null,
+                spotify_link: document.getElementById('trk-spot').value || null,
+                apple_link: document.getElementById('trk-apple').value || null,
+                youtube_link: document.getElementById('trk-yt').value || null,
+                about_song: document.getElementById('trk-about').value || null
+            };
+
+            const { error } = id ? await supabaseClient.from('tracks').update(payload).eq('id', id) : await supabaseClient.from('tracks').insert([payload]);
+            if (error) alert(error.message); else { closeTrackModal(); fetchTracksCatalog(); }
+        });
+
+        async function deleteTrackRow(numericId) {
+            if (!confirm('Are you certain you wish to wipe this record row package out of the data tree permanently?')) return;
+            const { error } = await supabaseClient.from('tracks').delete().eq('id', numericId);
+            if (error) alert(error.message); else fetchTracksCatalog();
+        }
+    </script>
+</body>
+</html>

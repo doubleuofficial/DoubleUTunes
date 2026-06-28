@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discography | DoubleU Official</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth min-h-screen flex flex-col">
+
+    <!-- Universal Navigation Header -->
+    <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <a href="index.html" class="text-xl font-black tracking-widest text-amber-500 hover:text-amber-400 transition">DOUBLEU</a>
+            <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wider uppercase">
+                <a href="index.html" class="hover:text-amber-400 transition duration-200">Home</a>
+                <a href="discography.html" class="text-amber-500 transition duration-200">Discography</a>
+                <a href="index.html#about" class="hover:text-amber-400 transition duration-200">About</a>
+                <a href="index.html#contact" class="hover:text-amber-400 transition duration-200">Contact</a>
+            </div>
+            <button class="md:hidden text-zinc-400 hover:text-white p-2">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex-grow">
+        <header class="mb-12">
+            <h1 class="text-4xl font-black uppercase tracking-tight">Discography</h1>
+            <p class="text-zinc-500 font-mono text-sm mt-2">// Sonic archive telemetry retrieved from secure database</p>
+        </header>
+
+        <div id="loading-state" class="text-center py-20 font-mono text-zinc-500">
+            <i class="fas fa-compact-disc fa-spin text-3xl text-amber-500 mb-4 block"></i> Querying catalog indices...
+        </div>
+
+        <!-- Section 1: EPs & Albums (Newest to Oldest) -->
+        <section id="albums-section" class="hidden mb-16">
+            <h2 class="text-xs font-mono tracking-widest text-amber-500 uppercase mb-4">// Albums & EPs</h2>
+            <div id="albums-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+
+        <!-- Section 2: Singles (Newest to Oldest) -->
+        <section id="singles-section" class="hidden">
+            <h2 class="text-xs font-mono tracking-widest text-amber-500 uppercase mb-4">// Singles & Standalone Transmissions</h2>
+            <div id="singles-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+        </section>
+    </main>
+
+    <!-- Universal System Footer -->
+    <footer class="bg-zinc-950 py-12 border-t border-zinc-900 text-zinc-500 text-xs font-mono mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="text-center sm:text-left">
+                <p>&copy; 2026 DOUBLEU. All rights reserved.</p>
+                <p class="text-zinc-700 mt-1">System State: <span id="system-state-node" class="text-zinc-500">Standard Mode</span></p>
+            </div>
+            <div id="footer-socials" class="flex items-center space-x-6 text-sm"></div>
+        </div>
+    </footer>
+
+    <!-- Render Engine Engine Script -->
+    <script>
+        const SUPABASE_URL = "https://your-project-id.supabase.co"; 
+        const SUPABASE_KEY = "your-anon-public-key";
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        function buildStreamingButtons(track) {
+            let htmlStr = '';
+            if (track.spotify_link) htmlStr += `<a href="${track.spotify_link}" target="_blank" class="flex items-center gap-2 bg-zinc-950 border border-zinc-800/80 px-3 py-2 rounded text-xs font-medium hover:bg-zinc-800 text-zinc-300 transition"><i class="fab fa-spotify text-green-500"></i> Spotify</a>`;
+            if (track.apple_link) htmlStr += `<a href="${track.apple_link}" target="_blank" class="flex items-center gap-2 bg-zinc-950 border border-zinc-800/80 px-3 py-2 rounded text-xs font-medium hover:bg-zinc-800 text-zinc-300 transition"><i class="fab fa-apple text-white"></i> Apple</a>`;
+            if (track.youtube_link) htmlStr += `<a href="${track.youtube_link}" target="_blank" class="flex items-center gap-2 bg-zinc-950 border border-zinc-800/80 px-3 py-2 rounded text-xs font-medium hover:bg-zinc-800 text-zinc-300 transition"><i class="fab fa-youtube text-red-500"></i> YouTube</a>`;
+            return htmlStr;
+        }
+
+        function generateCardHtml(track) {
+            const fallbackImg = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><rect width="100%" height="100%" fill="%2318181b"/></svg>';
+            return `
+                <div class="bg-zinc-900 border border-zinc-800 rounded-lg p-5 flex flex-col justify-between group hover:border-zinc-700 transition">
+                    <div>
+                        <div class="aspect-square w-full bg-zinc-950 rounded-md mb-4 overflow-hidden border border-zinc-800">
+                            <img src="${track.image_path || fallbackImg}" alt="${track.album_name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        </div>
+                        <span class="text-[10px] font-mono text-amber-500 tracking-widest uppercase bg-amber-500/10 px-2 py-0.5 rounded">
+                            ${track.release_date ? new Date(track.release_date).getFullYear() : 'TBD'}
+                        </span>
+                        <h3 class="font-bold tracking-tight text-xl mt-2 text-white">${track.album_name || 'Untitled Release'}</h3>
+                        <p class="text-zinc-500 font-mono text-xs mt-1">${track.featured_artist ? `ft. ${track.featured_artist}` : 'DoubleU'}</p>
+                    </div>
+                    <div class="flex flex-wrap gap-2 pt-4 mt-4 border-t border-zinc-800/50">${buildStreamingButtons(track)}</div>
+                </div>`;
+        }
+
+        async function initializePage() {
+            try {
+                // Fetch layout system options for universal footer hydration sync
+                const { data: config } = await supabaseClient.from('system_config').select('*').eq('id', 1).single();
+                if(config) {
+                    document.getElementById('system-state-node').innerText = config.system_state || "Standard Mode";
+                    const socials = typeof config.same_as_nodes === 'string' ? JSON.parse(config.same_as_nodes) : config.same_as_nodes;
+                    if(socials) {
+                        const container = document.getElementById('footer-socials'); container.innerHTML = '';
+                        const structuralMap = [{ key: 'instagram_url', icon: 'fa-instagram' }, { key: 'twitter_url', icon: 'fa-x-twitter' }, { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }];
+                        structuralMap.forEach(item => {
+                            if (socials[item.key]) container.innerHTML += `<a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 text-zinc-400 transition-colors"><i class="fab ${item.icon}"></i></a>`;
+                        });
+                    }
+                }
+
+                // Fetch database records sorting by newest to oldest
+                const { data: tracks, error } = await supabaseClient.from('tracks').select('*').order('release_date', { ascending: false });
+                if (error) throw error;
+
+                const albumsGrid = document.getElementById('albums-grid');
+                const singlesGrid = document.getElementById('singles-grid');
+                let aCount = 0, sCount = 0;
+
+                tracks.forEach(track => {
+                    const isAlbumFormat = track.track_no > 1 || (track.slug && (track.slug.includes('ep') || track.slug.includes('album')));
+                    if (isAlbumFormat) { albumsGrid.innerHTML += generateCardHtml(track); aCount++; } 
+                    else { singlesGrid.innerHTML += generateCardHtml(track); sCount++; }
+                });
+
+                document.getElementById('loading-state').classList.add('hidden');
+                if (aCount > 0) document.getElementById('albums-section').classList.remove('hidden');
+                if (sCount > 0) document.getElementById('singles-section').classList.remove('hidden');
+            } catch (err) { console.error(err.message); }
+        }
+        window.addEventListener('DOMContentLoaded', initializePage);
+    </script>
+</body>
+</html>
+
