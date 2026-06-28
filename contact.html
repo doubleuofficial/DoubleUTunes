@@ -4,10 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact & Telemetry Routing | DoubleU Official</title>
-    
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="bg-zinc-950 text-zinc-100 font-sans scroll-smooth min-h-screen flex flex-col">
@@ -15,14 +13,12 @@
     <nav class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 transition-all">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <a href="index.html" class="text-xl font-black tracking-widest text-amber-500 hover:text-amber-400 transition">DOUBLEU</a>
-            
             <div class="hidden md:flex space-x-8 font-medium text-sm tracking-wider uppercase">
                 <a href="index.html" class="hover:text-amber-400 transition duration-200">Home</a>
                 <a href="discography.html" class="hover:text-amber-400 transition duration-200">Discography</a>
                 <a href="about.html" class="hover:text-amber-400 transition duration-200">About</a>
                 <a href="contact.html" class="text-amber-500 transition duration-200">Contact</a>
             </div>
-            
             <button class="md:hidden text-zinc-400 hover:text-white p-2">
                 <i class="fas fa-bars text-xl"></i>
             </button>
@@ -36,22 +32,18 @@
         </header>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-            
             <div class="lg:col-span-5 space-y-6 font-mono text-xs text-zinc-400">
                 <div class="bg-zinc-900 border border-zinc-800 p-6 rounded space-y-4">
                     <h3 class="text-amber-500 uppercase tracking-widest font-bold border-b border-zinc-800 pb-2">// Routing Directory</h3>
-                    
                     <div>
                         <span class="text-zinc-500 block uppercase tracking-wider mb-1">General Telemetry & Inquiries:</span>
                         <a href="mailto:studio@doubleu-modular.xyz" class="text-zinc-200 hover:text-amber-400 transition text-sm font-sans font-bold">studio@doubleu-modular.xyz</a>
                     </div>
-
                     <div>
                         <span class="text-zinc-500 block uppercase tracking-wider mb-1">Booking & Representation Node:</span>
                         <span class="text-zinc-200 text-sm font-sans font-bold">Underground Signal Agency</span>
                     </div>
                 </div>
-
                 <div class="bg-zinc-900/40 border border-zinc-900 p-6 rounded leading-relaxed text-zinc-500">
                     <span class="text-amber-500 font-bold block mb-2 uppercase tracking-widest">// Transmission Protocol</span>
                     All fields are processed through client-side encryption modules. For hardware integration specifications or press kit credentials, dispatch your network profile using the primary terminal interface. 
@@ -63,14 +55,13 @@
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
                             <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 tracking-wider">Identification / Name</label>
-                            <input type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-white">
+                            <input type="text" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 transition text-white">
                         </div>
                         <div>
                             <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 tracking-wider">Return Routing / Email</label>
-                            <input type="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-white">
+                            <input type="email" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 transition text-white">
                         </div>
                     </div>
-
                     <div>
                         <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 tracking-wider">Subject Classification</label>
                         <select class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 text-zinc-300">
@@ -80,18 +71,15 @@
                             <option value="remix">Remix / Label Telemetry</option>
                         </select>
                     </div>
-
                     <div>
                         <label class="block text-xs font-mono uppercase text-zinc-400 mb-1.5 tracking-wider">Transmission Data / Message Content</label>
-                        <textarea rows="6" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition text-white placeholder-zinc-700" placeholder="Awaiting raw string inputs..."></textarea>
+                        <textarea rows="6" required class="w-full bg-zinc-950 border border-zinc-800 rounded p-3 text-sm focus:outline-none focus:border-amber-500 transition text-white placeholder-zinc-700" placeholder="Awaiting raw string inputs..."></textarea>
                     </div>
-
-                    <button type="submit" class="w-full bg-amber-500 text-zinc-950 py-3.5 font-bold tracking-widest text-xs uppercase hover:bg-amber-400 transition-colors duration-200 rounded shadow-lg shadow-amber-500/5 cursor-pointer">
+                    <button type="submit" class="w-full bg-amber-500 text-zinc-950 py-3.5 font-bold tracking-widest text-xs uppercase hover:bg-amber-400 transition-colors duration-200 rounded shadow-lg">
                         <i class="fas fa-paper-plane mr-2"></i> Dispatch Transmission
                     </button>
                 </form>
             </div>
-            
         </div>
     </main>
 
@@ -106,59 +94,39 @@
     </footer>
 
     <script>
-        const SUPABASE_URL = "https://your-project-id.supabase.co"; 
-        const SUPABASE_KEY = "your-anon-public-key";
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        let supabaseClient;
+
+        async function connectDatabaseGrid() {
+            try {
+                const response = await fetch('/api/config');
+                const config = await response.json();
+                if (!config.supabaseUrl || !config.supabaseKey) throw new Error("Variables missing.");
+                supabaseClient = supabase.createClient(config.supabaseUrl, config.supabaseKey);
+                initializeContactPage();
+            } catch (err) { console.error("Initialization failure:", err.message); }
+        }
 
         async function initializeContactPage() {
             try {
-                // Fetch configuration metrics from DB row 1
-                const { data: config, error } = await supabaseClient
-                    .from('system_config')
-                    .select('system_state, same_as_nodes')
-                    .eq('id', 1)
-                    .single();
-
+                const { data: config, error } = await supabaseClient.from('system_config').select('system_state, same_as_nodes').eq('id', 1).single();
                 if (error) throw error;
-
                 if (config) {
                     document.getElementById('system-state-node').innerText = config.system_state || "Standard Mode";
-                    
                     const socials = typeof config.same_as_nodes === 'string' ? JSON.parse(config.same_as_nodes) : config.same_as_nodes;
-                    
                     if (socials) {
-                        const container = document.getElementById('footer-socials');
-                        container.innerHTML = ''; 
-                        
-                        const structuralMap = [
-                            { key: 'instagram_url', icon: 'fa-instagram' },
-                            { key: 'twitter_url', icon: 'fa-x-twitter' },
-                            { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }
-                        ];
-
+                        const container = document.getElementById('footer-socials'); container.innerHTML = '';
+                        const structuralMap = [{ key: 'instagram_url', icon: 'fa-instagram' }, { key: 'twitter_url', icon: 'fa-x-twitter' }, { key: 'wikipedia_url', icon: 'fa-wikipedia-w' }];
                         structuralMap.forEach(item => {
                             if (socials[item.key]) {
-                                container.innerHTML += `
-                                    <a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 text-zinc-400 transition-colors duration-200">
-                                        <i class="fab ${item.icon}"></i>
-                                    </a>`;
+                                container.innerHTML += `<a href="${socials[item.key]}" target="_blank" class="hover:text-amber-500 text-zinc-400 transition-colors duration-200"><i class="fab ${item.icon}"></i></a>`;
                             }
                         });
                     }
                 }
-            } catch (err) {
-                console.error("Failure updating universal infrastructure elements on Contact page:", err.message);
-            }
+            } catch (err) { console.error("Telemetry mapping fault on contact panel:", err.message); }
         }
-
-        window.addEventListener('DOMContentLoaded', initializeContactPage);
-
-        // Simple UX feedback rule for submission verification
-        document.getElementById('contact-form-dedicated').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Transmission cleanly verified and dispatched to studio routing arrays.');
-            e.target.reset();
-        });
+        window.addEventListener('DOMContentLoaded', connectDatabaseGrid);
+        document.getElementById('contact-form-dedicated').addEventListener('submit', (e) => { e.preventDefault(); alert('Transmission verified and logged.'); e.target.reset(); });
     </script>
 </body>
 </html>
